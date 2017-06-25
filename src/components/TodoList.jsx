@@ -1,12 +1,12 @@
 import React from 'react';
+import TodoItem from './TodoItem.jsx';
 
 export default class TodoList extends React.Component {
     render() {
-      const myArr = ['one', 'two', 'three']
-      return (
-          <ul>
-              <li>list item 1</li>
-          </ul>
-      )  
+        return (
+            <ul>
+                {this.props.list.map(item => <TodoItem key={item.id} item={item}/>)}
+            </ul>
+        )  
     }
 }
