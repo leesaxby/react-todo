@@ -1,5 +1,6 @@
 import React from 'react';
 import TodoList from './TodoList.jsx';
+import TodoForm from './TodoForm.jsx';
 
 export default class App extends React.Component {
     render() {
@@ -12,6 +13,7 @@ export default class App extends React.Component {
         return (
             <div>
                 <h4>Todo List</h4>
+                <TodoForm/>
                 <TodoList list={todos}/>
             </div>
         )
