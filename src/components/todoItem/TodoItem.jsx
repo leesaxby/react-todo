@@ -3,7 +3,7 @@ import React from 'react';
 export default class TodoItem extends React.Component {
     render() {
         return (
-            <li>Todo list item</li>
+            <li>{this.props.text}</li>
         );
     }
 }
