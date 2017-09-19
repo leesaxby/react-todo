@@ -1,5 +1,6 @@
 import React from 'react';
 import TodoList from '../todoList/TodoList.jsx';
+import TodoForm from '../todoForm/TodoForm.jsx';
 
 export default class Todos extends React.Component {
     constructor() {
@@ -16,7 +17,10 @@ export default class Todos extends React.Component {
     }
     render() {
         return (
-            <TodoList listItems={this.state.listItems}/>
+            <div>
+                <TodoForm/>
+                <TodoList listItems={this.state.listItems}/>
+            </div>
         );
     }
 }
