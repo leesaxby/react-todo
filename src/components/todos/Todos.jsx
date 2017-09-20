@@ -14,11 +14,22 @@ export default class Todos extends React.Component {
                 { id: 4, text: 'Item four' },
             ]
         }
+
+        this.addTodoItem = this.addTodoItem.bind(this);
+    }
+    addTodoItem(newItem) {
+        const maxId = Math.max(
+            ...this.state.listItems.map(({id}) => id)
+        );
+
+        this.setState({
+            listItems: [ { id: maxId + 1, text: newItem }, ...this.state.listItems ]
+        });
     }
     render() {
         return (
             <div>
-                <TodoForm/>
+                <TodoForm onAddTodoItem={this.addTodoItem}/>
                 <TodoList listItems={this.state.listItems}/>
             </div>
         );
