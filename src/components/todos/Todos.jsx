@@ -12,6 +12,7 @@ export default class Todos extends React.Component {
 
         this.addTodoItem = this.addTodoItem.bind(this);
         this.getTodos = this.getTodos.bind(this);
+        this.toggleDone = this.toggleDone.bind(this);
     }
     componentWillMount() {
         this.getTodos();
@@ -20,7 +21,8 @@ export default class Todos extends React.Component {
         return (
             <div>
                 <TodoForm onAddTodoItem={this.addTodoItem}/>
-                <TodoList listItems={this.state.listItems}/>
+                <TodoList listItems={this.state.listItems}
+                          onToggleDone={this.toggleDone}/>
             </div>
         );
     }
@@ -43,8 +45,8 @@ export default class Todos extends React.Component {
             });
     }
     addTodoItem(newItem) {
-        fetch("http://178.62.117.150:3000/todos", {
-            method: "POST",
+        fetch('http://178.62.117.150:3000/todos', {
+            method: 'POST',
             body: JSON.stringify({ text: newItem, done: false }),
             headers: {
                 'Accept': 'application/json',
@@ -58,7 +60,26 @@ export default class Todos extends React.Component {
             });
         })
         .catch(err => console.log(err));
-
+    }
+    toggleDone({ _id, text, done }) {
+        fetch(`http://178.62.117.150:3000/todos/${_id}`, {
+            method: 'PUT',
+            body: JSON.stringify({ text: text, done: !done }),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .then(todo => {
+            const list = Object.assign(this.state.listItems);
+            list.find(({_id}) => _id === todo._id).done = todo.done;
+              
+            this.setState({
+                listItems: list
+            });
+        })
+        .catch(err => console.log(err));
     }
 
 }

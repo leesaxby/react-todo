@@ -16,6 +16,9 @@ export default class TodoList extends React.Component {
     }
     getListItems() {
         return this.props.listItems
-                .map(item => <TodoItem key={item._id} text={item.text}/>);
+                .map(item => <TodoItem key={item._id}
+                                       item={item}
+                                       onToggleDone={this.props.onToggleDone}/>
+                );
     }
 }
