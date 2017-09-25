@@ -3,13 +3,13 @@ const bodyParser = require('body-parser');
 const Todo = require('./todo');
 
 const router = express.Router()
-router.use(bodyParser.urlencoded({ extender: true }));
+router.use(bodyParser.json({ extender: true }));
 
 // Create todo.
 router.post('/', (req, res) => {
     Todo.create({
         text: req.body.text,
-        done: req.body.email,
+        done: req.body.done,
     },
     (err, todo) => {
         if (err) {

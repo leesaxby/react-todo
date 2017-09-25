@@ -7,24 +7,14 @@ export default class Todos extends React.Component {
         super()
 
         this.state = {
-            listItems: [
-                { id: 1, text: 'Item one' },
-                { id: 2, text: 'Item two' },
-                { id: 3, text: 'Item three' },
-                { id: 4, text: 'Item four' },
-            ]
+            listItems: []
         }
 
         this.addTodoItem = this.addTodoItem.bind(this);
+        this.getTodos = this.getTodos.bind(this);
     }
-    addTodoItem(newItem) {
-        const maxId = Math.max(
-            ...this.state.listItems.map(({id}) => id)
-        );
-
-        this.setState({
-            listItems: [ { id: maxId + 1, text: newItem }, ...this.state.listItems ]
-        });
+    componentWillMount() {
+        this.getTodos();
     }
     render() {
         return (
@@ -34,4 +24,41 @@ export default class Todos extends React.Component {
             </div>
         );
     }
+    componentWillUnmount() {
+        clearTimeout(this.todoPoll);
+    }
+    getTodos() {
+        fetch('http://178.62.117.150:3000/todos', { method: 'get' })
+            .then(res => res.json())
+            .then(todos => {
+                this.setState({
+                    listItems: todos
+                });
+
+                this.todoPoll = setTimeout(this.getTodos, 5000);
+            })
+            .catch(err => {
+                this.todoPoll = setTimeout(this.getTodos, 5000);
+                console.log(err);
+            });
+    }
+    addTodoItem(newItem) {
+        fetch("http://178.62.117.150:3000/todos", {
+            method: "POST",
+            body: JSON.stringify({ text: newItem, done: false }),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .then(todo => {
+            this.setState({
+                listItems: [ ...this.state.listItems, todo ]
+            });
+        })
+        .catch(err => console.log(err));
+
+    }
+
 }
