@@ -2,7 +2,7 @@ import React from 'react';
 
 export default class TodoForm extends React.Component {
     constructor() {
-        super()
+        super();
 
         this.state = {
             newItem: ''
@@ -19,7 +19,7 @@ export default class TodoForm extends React.Component {
 
                 <button onClick={this.addTodoItem}>Add</button>
             </div>
-        )
+        );
     }
     addTodoItem() {
         this.props.onAddTodoItem(this.state.newItem);

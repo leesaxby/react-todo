@@ -9,7 +9,7 @@ export default class TodoItem extends React.Component {
     render() {
         const itemStyle = {
             'textDecoration': this.props.item.done ? 'line-through' : ''
-        }
+        };
 
         return (
             <li>
@@ -21,6 +21,6 @@ export default class TodoItem extends React.Component {
         );
     }
     toggleDone() {
-        this.props.onToggleDone(this.props.item)
+        this.props.onToggleDone(this.props.item);
     }
 }

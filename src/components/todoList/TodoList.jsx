@@ -3,7 +3,7 @@ import TodoItem from '../todoItem/TodoItem.jsx';
 
 export default class TodoList extends React.Component {
     constructor() {
-        super()
+        super();
 
         this.getListItems = this.getListItems.bind(this);
     }
@@ -12,7 +12,7 @@ export default class TodoList extends React.Component {
             <ul>
                 {this.getListItems()}
             </ul>
-        )
+        );
     }
     getListItems() {
         return this.props.listItems

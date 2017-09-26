@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const Todo = require('./todo');
 
-const router = express.Router()
+const router = express.Router();
 router.use(bodyParser.json({ extender: true }));
 
 // Create todo.
@@ -26,7 +26,7 @@ router.get('/', (req, res) => {
     Todo.find({}, (err, todos) => {
         if (err) {
             return res.status(500)
-                      .send("There was a problem getting todos.");
+                      .send('There was a problem getting todos.');
         }
 
         res.status(200).send(todos);
@@ -48,7 +48,7 @@ router.get('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
     Todo.findByIdAndRemove(req.params.id, (err, todo) => {
         if (err) {
-            return res.status(500).send("Problem deleting todo.")
+            return res.status(500).send('Problem deleting todo.');
         }
 
         res.status(200).send(`Todo: ${todo.text} has been deleted.`);

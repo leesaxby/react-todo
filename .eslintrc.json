@@ -7,16 +7,13 @@
         "protractor": true,
         "amd": true
     },
-    "extends": ["eslint:recommended", "plugins:react/recommended"],
+    "extends": ["eslint:recommended"],
     "parserOptions": {
         "sourceType": "module",
         "ecmaFeatures": {
             "jsx": true
         }
     },
-    "plugins": [
-        "react"
-    ],
     "rules": {
         "quotes": [
             2,

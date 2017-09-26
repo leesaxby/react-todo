@@ -4,11 +4,11 @@ import TodoForm from '../todoForm/TodoForm.jsx';
 
 export default class Todos extends React.Component {
     constructor() {
-        super()
+        super();
 
         this.state = {
             listItems: []
-        }
+        };
 
         this.addTodoItem = this.addTodoItem.bind(this);
         this.getTodos = this.getTodos.bind(this);
@@ -74,7 +74,7 @@ export default class Todos extends React.Component {
         .then(todo => {
             const list = Object.assign(this.state.listItems);
             list.find(({_id}) => _id === todo._id).done = todo.done;
-              
+
             this.setState({
                 listItems: list
             });
