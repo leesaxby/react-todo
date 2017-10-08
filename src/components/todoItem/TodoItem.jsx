@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default function TodoItem(props) {
-
     const itemStyle = {
         'textDecoration': props.item.done ? 'line-through' : ''
     };
@@ -18,5 +17,4 @@ export default function TodoItem(props) {
             </span>
         </li>
     );
-
 }
