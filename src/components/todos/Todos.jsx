@@ -1,6 +1,14 @@
 import React from 'react';
+import styled from 'styled-components';
 import TodoList from '../todoList/TodoList.jsx';
 import TodoForm from '../todoForm/TodoForm.jsx';
+
+const FlexContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+`;
 
 export default class Todos extends React.Component {
     constructor() {
@@ -20,9 +28,14 @@ export default class Todos extends React.Component {
     render() {
         return (
             <div>
-                <TodoForm onAddTodoItem={this.addTodoItem}/>
-                <TodoList listItems={this.state.listItems}
-                          onToggleDone={this.toggleDone}/>
+                <FlexContainer>
+                    <TodoForm onAddTodoItem={this.addTodoItem}/>
+                </FlexContainer>
+
+                <FlexContainer>
+                    <TodoList listItems={this.state.listItems}
+                              onToggleDone={this.toggleDone}/>            
+                </FlexContainer>
             </div>
         );
     }
