@@ -13,6 +13,7 @@ const ListItem = styled.li`
     border-radius: 3px;
     box-shadow: 0 2px 3px #aaa;
     margin-bottom: 10px;
+    font-family: 'Roboto', sans-serif;
     font-weight: 300;
     cursor: pointer;
 `;
@@ -28,7 +29,7 @@ const StatusCirle = styled.div`
     width: 15px;
     border-radius: 75px;
     margin-right: 10px;
-    background-color: ${props => props.done ? '#f39c12' : '#2ecc71'};  
+    background-color: ${props => props.done ? '#f39c12' : '#2ecc71'};
 `;
 
 export default function TodoItem({ item, onToggleDone }) {

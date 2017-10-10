@@ -34,7 +34,7 @@ export default class Todos extends React.Component {
 
                 <FlexContainer>
                     <TodoList listItems={this.state.listItems}
-                              onToggleDone={this.toggleDone}/>            
+                              onToggleDone={this.toggleDone}/>
                 </FlexContainer>
             </div>
         );
