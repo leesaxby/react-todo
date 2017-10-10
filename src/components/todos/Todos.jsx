@@ -22,9 +22,11 @@ export default class Todos extends React.Component {
         this.getTodos = this.getTodos.bind(this);
         this.toggleDone = this.toggleDone.bind(this);
     }
+
     componentWillMount() {
         this.getTodos();
     }
+
     render() {
         return (
             <div>
@@ -39,12 +41,13 @@ export default class Todos extends React.Component {
             </div>
         );
     }
+
     componentWillUnmount() {
         clearTimeout(this.todoPoll);
     }
+
     getTodos() {
-        fetch('http://178.62.117.150:3000/todos', { method: 'get' })
-            .then(res => res.json())
+        this.todoService({ type: 'GET' })
             .then(todos => {
                 this.setState({
                     listItems: todos
@@ -57,16 +60,9 @@ export default class Todos extends React.Component {
                 console.log(err);
             });
     }
+
     addTodoItem(newItem) {
-        fetch('http://178.62.117.150:3000/todos', {
-            method: 'POST',
-            body: JSON.stringify({ text: newItem, done: false }),
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => res.json())
+        this.todoService({ type: 'POST', data: { text: newItem, done: false } })
         .then(todo => {
             this.setState({
                 listItems: [ ...this.state.listItems, todo ]
@@ -74,25 +70,29 @@ export default class Todos extends React.Component {
         })
         .catch(err => console.log(err));
     }
+
     toggleDone({ _id, text, done }) {
-        fetch(`http://178.62.117.150:3000/todos/${_id}`, {
-            method: 'PUT',
-            body: JSON.stringify({ text: text, done: !done }),
+        this.todoService({ type: 'PUT', id: _id, data: { text: text, done: !done } })
+            .then(todo => {
+                const list = Object.assign(this.state.listItems);
+                list.find(({_id}) => _id === todo._id).done = todo.done;
+
+                this.setState({
+                    listItems: list
+                });
+            })
+            .catch(err => console.log(err));
+    }
+
+    todoService({ type, id = '', data }) {
+        return fetch(`http://178.62.117.150:3000/todos/${id}`, {
+            method: type,
+            body: JSON.stringify(data),
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
         })
-        .then(res => res.json())
-        .then(todo => {
-            const list = Object.assign(this.state.listItems);
-            list.find(({_id}) => _id === todo._id).done = todo.done;
-
-            this.setState({
-                listItems: list
-            });
-        })
-        .catch(err => console.log(err));
+        .then(res => res.json());
     }
-
 }
