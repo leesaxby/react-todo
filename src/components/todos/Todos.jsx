@@ -9,6 +9,7 @@ const FlexContainer = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    margin-top: 20px;
 `;
 
 export default class Todos extends React.Component {
@@ -39,8 +40,8 @@ export default class Todos extends React.Component {
                 <FlexContainer>
                     <TodoForm onAddTodoItem={this.addTodoItem}/>
                     <TodoFilter filter={this.state.todos.filter}
-                                onUpdateFilter={this.updateFilter}>
-                    </TodoFilter>
+                                onUpdateFilter={this.updateFilter}/>
+
                 </FlexContainer>
 
                 <FlexContainer>
@@ -114,7 +115,7 @@ export default class Todos extends React.Component {
     filterTodos(list) {
         return list.filter(({ done }) => this.state.todos.filter === 'DONE' ? done : !done);
     }
-  
+
     todoService({ type, id = '', data }) {
         return fetch(`http://178.62.117.150:3000/todos/${id}`, {
             method: type,
