@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 const TodoInput = styled.input`
     height: 45px;
-    width: 100%;
     padding: 0 10px;
     box-sizing: border-box;
     border: 0;
