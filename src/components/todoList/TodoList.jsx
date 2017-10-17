@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import TodoItem from '../todoItem/TodoItem.jsx';
 
@@ -21,4 +22,14 @@ export default function TodoList(props) {
     return (
         <List>{ getListItems() }</List>
     );
+}
+
+TodoList.propTypes = {
+    listItems: PropTypes.arrayOf(
+        PropTypes.shape({
+            _id: PropTypes.string,
+            text: PropTypes.string,
+            done: PropTypes.bool
+        })
+    )
 }
