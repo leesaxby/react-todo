@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const ListItem = styled.li`
@@ -45,4 +46,12 @@ export default function TodoItem({ item, onToggleDone }) {
             </ItemText>
         </ListItem>
     );
+}
+
+TodoItem.propTypes = {
+    item: PropTypes.shape({
+        text: PropTypes.string,
+        done: PropTypes.bool
+    }),
+    onToggleDone: PropTypes.func
 }

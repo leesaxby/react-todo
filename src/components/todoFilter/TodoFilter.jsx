@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Slider = styled.div`
@@ -60,4 +61,9 @@ export default class TodoFilter extends React.Component {
         });
     }
 
+}
+
+TodoFilter.propTypes = {
+    filter: PropTypes.oneOf([ 'ACTIVE', 'DONE' ]),
+    onUpdateFilter: PropTypes.func
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const TodoInput = styled.input`
@@ -47,4 +48,8 @@ export default class TodoForm extends React.Component {
         this.addTodoItem();
       }
     }
+}
+
+TodoForm.propTypes = {
+    onAddTodoItem: PropTypes.func
 }
