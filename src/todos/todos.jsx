@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import TodoList from '../todoList/TodoList.jsx';
-import TodoForm from '../todoForm/TodoForm.jsx';
-import TodoFilter from '../todoFilter/TodoFilter.jsx';
+import TodoList from './todoList.jsx';
+import TodoForm from './todoForm.jsx';
+import TodoFilter from './todoFilter.jsx';
 
 const FlexContainer = styled.div`
     display: flex;

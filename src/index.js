@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import Todos from './components/todos/Todos.jsx';
+import App from './app/app.jsx';
 
-ReactDom.render(<Todos/>, document.getElementById('root'));
+ReactDom.render(
+    <App/>,
+    document.getElementById('root')
+);
