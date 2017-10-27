@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { addTodo, fetchTodos, updateFilter } from './todos.action.js';
+
 import styled from 'styled-components';
 import TodoList from './todoList.jsx';
 import TodoForm from './todoForm.jsx';
@@ -12,16 +15,16 @@ const FlexContainer = styled.div`
     margin-top: 20px;
 `;
 
-export default class Todos extends React.Component {
+class Todos extends React.Component {
     constructor() {
         super();
 
-        this.state = {
-            todos: {
-              listItems: [],
-              filter: 'ACTIVE'
-            }
-        };
+        // this.state = {
+        //     todos: {
+        //       listItems: [],
+        //       filter: 'ACTIVE'
+        //     }
+        // };
 
         this.addTodoItem = this.addTodoItem.bind(this);
         this.getTodos = this.getTodos.bind(this);
@@ -31,7 +34,8 @@ export default class Todos extends React.Component {
     }
 
     componentWillMount() {
-        this.getTodos();
+       // this.getTodos();
+       this.props.fetchData();
     }
 
     render() {
@@ -39,13 +43,13 @@ export default class Todos extends React.Component {
             <div>
                 <FlexContainer>
                     <TodoForm onAddTodoItem={this.addTodoItem}/>
-                    <TodoFilter filter={this.state.todos.filter}
+                    <TodoFilter filter={this.props.todos.filter}
                                 onUpdateFilter={this.updateFilter}/>
 
                 </FlexContainer>
 
                 <FlexContainer>
-                    <TodoList listItems={this.filterTodos(this.state.todos.listItems)}
+                    <TodoList listItems={this.filterTodos(this.props.todos.listItems)}
                               onToggleDone={this.toggleDone}/>
                 </FlexContainer>
             </div>
@@ -104,16 +108,17 @@ export default class Todos extends React.Component {
     }
 
     updateFilter(filter) {
-        this.setState({
-            todos: {
-                listItems: this.state.todos.listItems,
-                filter: filter
-            }
-        });
+        this.props.updateFilter(filter);
+        // this.setState({
+        //     todos: {
+        //         listItems: this.props.todos.listItems,
+        //         filter: filter
+        //     }
+        // });
     }
 
     filterTodos(list) {
-        return list.filter(({ done }) => this.state.todos.filter === 'DONE' ? done : !done);
+        return list.filter(({ done }) => this.props.todos.filter === 'DONE' ? done : !done);
     }
 
     todoService({ type, id = '', data }) {
@@ -128,3 +133,18 @@ export default class Todos extends React.Component {
         .then(res => res.json());
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        todos: state.todos
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchData: () => dispatch(fetchTodos()),
+        updateFilter: (filter) => dispatch(updateFilter(filter))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Todos);
