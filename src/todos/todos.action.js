@@ -1,7 +1,21 @@
-export function addTodo(text) {
-    return {
-        type: 'ADD_TODO',
-        text
+export function addTodo(todo) {
+    return dispatch => {
+        return fetch(`http://178.62.117.150:3000/todos/`, {
+            method: 'POST',
+            body: JSON.stringify(todo),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .then(todo => {
+            dispatch({
+                type: 'ADD_TODO',
+                payload: todo
+            });
+        })
+        .catch(err => console.log(err));
     };
 }
 
@@ -17,14 +31,14 @@ export function fetchTodos() {
         .then(res => res.json())
         .then(todos => {
 
-                dispatch(fetchTodosSuccess(todos));
+            dispatch(fetchTodosSuccess(todos));
 
-             //   this.todoPoll = setTimeout(this.getTodos, 5000);
-            })
-            .catch(err => {
-               // this.todoPoll = setTimeout(this.getTodos, 5000);
-                console.log(err);
-            });
+            //   this.todoPoll = setTimeout(this.getTodos, 5000);
+        })
+        .catch(err => {
+            // this.todoPoll = setTimeout(this.getTodos, 5000);
+            console.log(err);
+        });
     };
 }
 

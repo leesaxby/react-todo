@@ -79,16 +79,7 @@ class Todos extends React.Component {
     }
 
     addTodoItem(newItem) {
-        this.todoService({ type: 'POST', data: { text: newItem, done: false } })
-        .then(todo => {
-            this.setState({
-                todos: {
-                  listItems: [ ...this.state.todos.listItems, todo ],
-                  filter: this.state.todos.filter
-                }
-            });
-        })
-        .catch(err => console.log(err));
+        this.props.addTodo({ text: newItem, done: false });
     }
 
     toggleDone({ _id, text, done }) {
@@ -109,12 +100,6 @@ class Todos extends React.Component {
 
     updateFilter(filter) {
         this.props.updateFilter(filter);
-        // this.setState({
-        //     todos: {
-        //         listItems: this.props.todos.listItems,
-        //         filter: filter
-        //     }
-        // });
     }
 
     filterTodos(list) {
@@ -143,7 +128,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchData: () => dispatch(fetchTodos()),
-        updateFilter: (filter) => dispatch(updateFilter(filter))
+        updateFilter: (filter) => dispatch(updateFilter(filter)),
+        addTodo: (todo) => dispatch(addTodo(todo))
     };
 };
 

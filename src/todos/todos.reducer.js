@@ -7,9 +7,8 @@ export function todos(state = initialState, action) {
     switch (action.type) {
         case 'ADD_TODO':
             return {
-                todos: {
-                    listItems: [ ...state.todos.listItems, { text: action.payload, done: false }]
-                }
+                    listItems: [ ...state.listItems, action.payload ],
+                    filter: state.filter
             };
         case 'FETCH_TODOS_SUCCESS':
             return {
