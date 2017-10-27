@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addTodo, fetchTodos, updateFilter } from './todos.action.js';
+import { addTodo, fetchTodos, updateFilter, updateDoneStatus } from './todos.action.js';
 
 import styled from 'styled-components';
 import TodoList from './todoList.jsx';
@@ -19,22 +19,13 @@ class Todos extends React.Component {
     constructor() {
         super();
 
-        // this.state = {
-        //     todos: {
-        //       listItems: [],
-        //       filter: 'ACTIVE'
-        //     }
-        // };
-
         this.addTodoItem = this.addTodoItem.bind(this);
-        this.getTodos = this.getTodos.bind(this);
         this.toggleDone = this.toggleDone.bind(this);
         this.updateFilter = this.updateFilter.bind(this);
         this.filterTodos = this.filterTodos.bind(this);
     }
 
     componentWillMount() {
-       // this.getTodos();
        this.props.fetchData();
     }
 
@@ -57,45 +48,15 @@ class Todos extends React.Component {
     }
 
     componentWillUnmount() {
-        clearTimeout(this.todoPoll);
-    }
-
-    getTodos() {
-        this.todoService({ type: 'GET' })
-            .then(todos => {
-                this.setState({
-                    todos: {
-                        listItems: todos,
-                        filter: this.state.todos.filter
-                    }
-                });
-
-                this.todoPoll = setTimeout(this.getTodos, 5000);
-            })
-            .catch(err => {
-                this.todoPoll = setTimeout(this.getTodos, 5000);
-                console.log(err);
-            });
+        //clearTimeout(this.todoPoll);
     }
 
     addTodoItem(newItem) {
         this.props.addTodo({ text: newItem, done: false });
     }
 
-    toggleDone({ _id, text, done }) {
-        this.todoService({ type: 'PUT', id: _id, data: { text: text, done: !done } })
-            .then(todo => {
-                const list = Object.assign(this.state.todos.listItems);
-                list.find(({_id}) => _id === todo._id).done = todo.done;
-
-                this.setState({
-                    todos: {
-                        listItems: list,
-                        filter: this.state.todos.filter
-                    }
-                });
-            })
-            .catch(err => console.log(err));
+    toggleDone({ _id, done }) {
+        this.props.updateDoneStatus(_id, done);
     }
 
     updateFilter(filter) {
@@ -129,7 +90,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchData: () => dispatch(fetchTodos()),
         updateFilter: (filter) => dispatch(updateFilter(filter)),
-        addTodo: (todo) => dispatch(addTodo(todo))
+        addTodo: (todo) => dispatch(addTodo(todo)),
+        updateDoneStatus: (id, doneStatus) => dispatch(updateDoneStatus(id, doneStatus))
     };
 };
 

@@ -31,8 +31,10 @@ export function fetchTodos() {
         .then(res => res.json())
         .then(todos => {
 
-            dispatch(fetchTodosSuccess(todos));
-
+            dispatch({
+                type: 'FETCH_TODOS_SUCCESS',
+                payload: todos
+            });
             //   this.todoPoll = setTimeout(this.getTodos, 5000);
         })
         .catch(err => {
@@ -42,16 +44,30 @@ export function fetchTodos() {
     };
 }
 
-export function fetchTodosSuccess(todos) {
-    return {
-        type: 'FETCH_TODOS_SUCCESS',
-        payload: todos
-    };
-}
-
 export function updateFilter(filter) {
     return {
         type: 'UPDATE_FILTER',
         payload: filter
+    };
+}
+
+export function updateDoneStatus(id, doneStatus) {
+    return dispatch => {
+        return fetch(`http://178.62.117.150:3000/todos/${id}`, {
+            method: 'PUT',
+            body: JSON.stringify({ done: !doneStatus }),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .then(todo => {
+            dispatch({
+                type: 'UPDATE_DONE_STATUS',
+                payload: todo
+           });
+        })
+        .catch(err => console.log(err));
     };
 }
