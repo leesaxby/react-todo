@@ -24,6 +24,7 @@ module.exports = {
       exclude: /node_modules/
     }]
   },
+  devtool: 'eval-source-map',
   devServer: {
     contentBase: path.resolve(__dirname, './dist'),
     host: '0.0.0.0',
