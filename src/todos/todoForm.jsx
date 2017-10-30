@@ -52,4 +52,4 @@ export default class TodoForm extends React.Component {
 
 TodoForm.propTypes = {
     onAddTodoItem: PropTypes.func
-}
+};

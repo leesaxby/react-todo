@@ -54,4 +54,4 @@ TodoItem.propTypes = {
         done: PropTypes.bool
     }),
     onToggleDone: PropTypes.func
-}
+};

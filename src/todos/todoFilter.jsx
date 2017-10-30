@@ -44,11 +44,15 @@ export default class TodoFilter extends React.Component {
         return(
             <Slider filter={this.state.filter}
                     onClick={this.updateFilter}>
-                <FilterText show={this.state.filter === 'DONE'}>done</FilterText>
+                <FilterText show={this.state.filter === 'DONE'}>
+                    done
+                </FilterText>
 
                 <Switch filter={this.state.filter}></Switch>
 
-                <FilterText show={this.state.filter === 'ACTIVE'}>todo</FilterText>
+                <FilterText show={this.state.filter === 'ACTIVE'}>
+                    todo
+                </FilterText>
             </Slider>
         );
     }
@@ -60,10 +64,9 @@ export default class TodoFilter extends React.Component {
             filter: newFilter
         });
     }
-
 }
 
 TodoFilter.propTypes = {
     filter: PropTypes.oneOf([ 'ACTIVE', 'DONE' ]),
     onUpdateFilter: PropTypes.func
-}
+};

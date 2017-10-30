@@ -32,4 +32,4 @@ TodoList.propTypes = {
             done: PropTypes.bool
         })
     )
-}
+};
