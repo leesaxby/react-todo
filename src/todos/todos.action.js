@@ -30,16 +30,10 @@ export function fetchTodos() {
         })
         .then(res => res.json())
         .then(todos => {
-
             dispatch({
                 type: 'FETCH_TODOS_SUCCESS',
                 payload: todos
             });
-            //   this.todoPoll = setTimeout(this.getTodos, 5000);
-        })
-        .catch(err => {
-            // this.todoPoll = setTimeout(this.getTodos, 5000);
-            console.log(err);
         });
     };
 }

@@ -23,10 +23,11 @@ class Todos extends React.Component {
         this.toggleDone = this.toggleDone.bind(this);
         this.updateFilter = this.updateFilter.bind(this);
         this.filterTodos = this.filterTodos.bind(this);
+        this.getTodos = this.getTodos.bind(this);
     }
 
     componentWillMount() {
-       this.props.fetchData();
+        this.getTodos();
     }
 
     render() {
@@ -48,7 +49,7 @@ class Todos extends React.Component {
     }
 
     componentWillUnmount() {
-        //clearTimeout(this.todoPoll);
+        clearTimeout(this.todoPoll);
     }
 
     addTodoItem(newItem) {
@@ -67,16 +68,15 @@ class Todos extends React.Component {
         return list.filter(({ done }) => this.props.todos.filter === 'DONE' ? done : !done);
     }
 
-    todoService({ type, id = '', data }) {
-        return fetch(`http://178.62.117.150:3000/todos/${id}`, {
-            method: type,
-            body: JSON.stringify(data),
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => res.json());
+    getTodos() {
+        this.props.fetchData()
+            .then(() => {
+                this.todoPoll = setTimeout(this.getTodos, 5000);
+            })
+            .catch(err => {
+                this.todoPoll = setTimeout(this.getTodos, 5000);
+                console.log(err);
+            });
     }
 }
 
