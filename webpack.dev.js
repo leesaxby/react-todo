@@ -3,7 +3,7 @@ const common = require('./webpack.common.js');
 const path = require('path');
 
 module.exports = merge(common, {
-    devtool: 'eval-source-map',
+    devtool: 'eval',
     output: {
         path: path.resolve(__dirname, './dist'),
         filename: '[name].js',
