@@ -5,8 +5,8 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
-import App from './app/app.jsx';
-import { todos } from './todos/todos.reducer.js';
+import App from './components/app/app.jsx';
+import { todos } from './components/todos/todos.reducers.js';
 
 const reducer = combineReducers({ todos });
 const store = createStore(
@@ -28,5 +28,5 @@ const render = Component => {
 render(App);
 
 if (module.hot) {
-    module.hot.accept('./app/app.jsx', () => { render(App); });
+    module.hot.accept('./components/app/app.jsx', () => { render(App); });
 }
