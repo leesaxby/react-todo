@@ -12,6 +12,7 @@ module.exports = merge(common, {
         contentBase: path.resolve(__dirname, './dist'),
         host: '0.0.0.0',
         disableHostCheck: true,
-        port: 9999
+        port: 9999,
+        hot: true
     }
 });
