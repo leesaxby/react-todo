@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import TodoItem from './todoItem.jsx';
+import TodoItem from '../todoItem/todoItem.jsx';
 
 const List = styled.ul`
     list-style: none;

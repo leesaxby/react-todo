@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addTodo, fetchTodos, updateFilter, updateDoneStatus } from './todos.action.js';
+import { addTodo, fetchTodos, updateFilter, updateDoneStatus } from './todos.actions.js';
 
 import styled from 'styled-components';
-import TodoList from './todoList.jsx';
-import TodoForm from './todoForm.jsx';
-import TodoFilter from './todoFilter.jsx';
+import TodoList from './todoList/todoList.jsx';
+import TodoForm from './todoForm/todoForm.jsx';
+import TodoFilter from './todoFilter/todoFilter.jsx';
 
 const FlexContainer = styled.div`
     display: flex;
