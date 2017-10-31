@@ -1,5 +1,9 @@
 {
     "presets":[
-        "es2015", "react"
+        "react"
+    ],
+    "plugins": [
+        "transform-es2015-classes",
+        "react-hot-loader/babel"
     ]
 }
